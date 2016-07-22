@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h3>Upload new image...</h3>
+  <form action="{{ url_for('api_classify') }}" method="post" enctype="multipart/form-data">
+    <p>
+      <input type="file" name="image">
+      <input type="submit" value="Upload">
+    </p>
+  </form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h3>Comparison results</h3>
+  <p>SQL query was: <code>{{ sql }}</code></p>
+  <p>Total count: <strong>{{ total }}</strong> (train {{ train_count }} + test {{ test_count }}).</p>
+  <p>Success classification: <strong>{{ true_count / total * 100 }}%</strong> ({{ true_count }}).</p>
+  <div style="max-width: 100%;">
+    {% if image_list %}
+      <table style="max-width: 30%;">
+        <thead>
+          <th style="min-width:150px;">&nbsp;</th>
+          <th>Phase</th>
+          <th>origin_class</th>
+          <th>status</th>
+          <th>defined_class</th>
+          <th>defined_probability</th>
+          <th>defined_top</th>
+        </thead>
+      {% for image in image_list %}
+        <tr class="{% if image['status'] == 'false' %}error{% endif %}" style="text-align: left; font-size: 10pt;">
+          <td><img src="{{ url_for('result_file', f=url_list[loop.index0]) }}" style="max-width: 100%;" /></td>
+          <td>{{ image['phase'] }}</td>
+          <td>{{ image['origin_class'] }}</td>
+          <td>{{ image['status'] }}</td>
+          <td>{{ image['defined_class'] }}</td>
+          <td>{{ image['defined_probability'] }}</td>
+          <td style="font-size: 7pt;">{{ image['defined_top'] }}</td>
+        </tr>
+      {% endfor %}
+      </table>
+    {% else %}
+      <p>No images is compared.</p>
+    {% endif %}
+  </div>
+{% endblock %}

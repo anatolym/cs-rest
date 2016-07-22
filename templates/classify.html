@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+  <div>
+    {% if image_url %}
+      <div style="max-width: 100%; text-align: center;">
+        <a href="{{ image_url }}">
+          <img src="{{ image_url }}" style="max-width: 100%;" />
+        </a>
+      </div>
+      {% if net_result %}
+        <h3>Class ID: {{ net_result['class_id'] }}</h3>
+        <h3>Class label: {{ net_result['class_label'] }}</h3>
+        <h3>Top 5 indexes with their probabilities:</h3>
+        <ul class="entries">
+          {% for ind in net_result['top_inds'] %}
+            <li>{{ ind }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% else %}
+      <p>No image is uploaded.</p>
+    {% endif %}
+  </div>
+{% endblock %}

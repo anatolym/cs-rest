@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h3>Upload new image...</h3>
+  <form action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+    <p>
+      <input type="file" name="image">
+      <input type="submit" value="Upload">
+    </p>
+  </form>
+  <h3>...or pic one from the list:</h3>
+  <div style="max-width: 100%; text-align: center;">
+    {% if image_list %}
+      {% for image in image_list %}
+        <a href="{{ url_for('classify', filename=image) }}">
+          <img src="{{ url_for('uploaded_file', filename=image) }}" style="max-width: 30%;" />
+        </a>
+      {% endfor %}
+    {% else %}
+      <p>No images in 'uploads'.</p>
+    {% endif %}
+    <p style="padding-top: 40px;"><a href="{{ url_for('clear_uploads') }}">Clear uploads folder</a></p>
+  </div>
+  <div style="width: 100%; background: #eee; padding: 1px;"></div>
+  <h3>API test</h3>
+  <p>Click <a href="{{ url_for('test_api') }}">here</a> to test the API.</p>
+  <div style="width: 100%; background: #eee; padding: 1px;"></div>
+  <h3>Compare classification results</h3>
+  <p>Click <a href="{{ url_for('comparison_results') }}">here</a> to check out results.</p>
+{% endblock %}
